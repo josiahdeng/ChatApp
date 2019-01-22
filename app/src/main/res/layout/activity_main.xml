@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     android:orientation="vertical"
-    android:weightSum="1">
-    <include layout="@layout/wechat_top"/>
-    <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    tools:context=".MainActivity">
 
-    </android.support.v4.view.ViewPager>
-    <include layout="@layout/wechat_top2" />
+    <include layout="@layout/wechat_top" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/chat_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送" />
+    </LinearLayout>
 </LinearLayout>
