@@ -1,4 +1,4 @@
-package com.example.deng.chatapp;
+package com.example.deng.chatapp.entity;
 
 public class Msg {
     public static final int TYEP_RECEIVED = 0;

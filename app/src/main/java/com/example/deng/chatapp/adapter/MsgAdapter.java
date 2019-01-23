@@ -1,4 +1,4 @@
-package com.example.deng.chatapp;
+package com.example.deng.chatapp.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.deng.chatapp.entity.Msg;
+import com.example.deng.chatapp.R;
 
 import java.util.List;
 
