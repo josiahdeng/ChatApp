@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        initMsgs();
+//        initMsgs();
         msgRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         msgRecyclerView.setLayoutManager(layoutManager);
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     mMsgList.add(msg);
                     adapter.notifyItemInserted(mMsgList.size() - 1);
                     msgRecyclerView.scrollToPosition(mMsgList.size() - 1);
-//                    map.put("text",  )
                     String url = "http://openapi.tuling123.com/openapi/api/v2";
                     JSONObject jsonObject = acceptJson(content);
                     HttpParams httpParams = new HttpParams();
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                     RxVolley.jsonPost(url, httpParams, new HttpCallback() {
                         @Override
                         public void onSuccess(String t) {
-                            System.out.println(t);
                             pasingJson(t);
                         }
                     });
