@@ -12,8 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSON;
 import com.example.deng.chatapp.adapter.MsgAdapter;
+import com.example.deng.chatapp.entity.InputText;
 import com.example.deng.chatapp.entity.Msg;
+import com.example.deng.chatapp.entity.Preception;
+import com.example.deng.chatapp.entity.SendMessage;
+import com.example.deng.chatapp.entity.UserInfo;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.kymjs.rxvolley.client.HttpParams;
@@ -22,7 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
                     adapter.notifyItemInserted(mMsgList.size() - 1);
                     msgRecyclerView.scrollToPosition(mMsgList.size() - 1);
                     String url = "http://openapi.tuling123.com/openapi/api/v2";
-                    JSONObject jsonObject = acceptJson(content);
+                    String jsonObject = acceptJson(content);
                     HttpParams httpParams = new HttpParams();
-                    httpParams.putJsonParams(jsonObject.toString());
+                    httpParams.putJsonParams(jsonObject);
                     RxVolley.jsonPost(url, httpParams, new HttpCallback() {
                         @Override
                         public void onSuccess(String t) {
@@ -78,15 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void initMsgs() {
-        Msg msg1 = new Msg("你好", Msg.TYEP_RECEIVED);
-        mMsgList.add(msg1);
-        Msg msg2 = new Msg("你是？", Msg.TYEP_SENT);
-        mMsgList.add(msg2);
-        Msg msg3 = new Msg("我是李志威啊！智障。", Msg.TYEP_RECEIVED);
-        mMsgList.add(msg3);
     }
 
     private void pasingJson(String message) {
@@ -106,24 +107,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private JSONObject acceptJson(String chatContent) {
-        JSONObject jsonObjects = null;
-        try {
-            jsonObjects = new JSONObject();
-            jsonObjects.put("reqType", 0);
-            JSONObject inputText = new JSONObject();
-            JSONObject text = new JSONObject();
-            text.put("text", chatContent);
-            inputText.put("inputText", text);
-            jsonObjects.put("perception", inputText);
-            JSONObject userInfo = new JSONObject();
-            userInfo.put("apiKey", "84e7b6a1f7ad4355af49cfc74c5fb52b");
-            userInfo.put("userId", "deng123");
-            jsonObjects.put("userInfo", userInfo);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObjects;
+    private String acceptJson(String chatContent) {
+        SendMessage message = new SendMessage();
+        InputText text = new InputText();
+        text.setText(chatContent);
+        Preception preception = new Preception();
+        preception.setInputText(text);
+        message.setReqType(1);
+        message.setPreception(preception);
+        UserInfo info = new UserInfo();
+        info.setApiKey("84e7b6a1f7ad4355af49cfc74c5fb52b");
+        info.setUserId("user123");
+        message.setUserInfo(info);
+        String chat = JSON.toJSONString(message);
+        return chat;
     }
 }
