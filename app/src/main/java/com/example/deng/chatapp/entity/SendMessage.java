@@ -1,5 +1,10 @@
 package com.example.deng.chatapp.entity;
 
+import com.alibaba.fastjson.annotation.JSONType;
+import com.example.deng.chatapp.entity.send_mess.Preception;
+import com.example.deng.chatapp.entity.send_mess.UserInfo;
+
+@JSONType(orders = {"reqType", "preception", "userInfo"})
 public class SendMessage {
     private int reqType;
 

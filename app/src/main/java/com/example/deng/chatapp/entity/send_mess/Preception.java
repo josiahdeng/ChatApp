@@ -1,4 +1,4 @@
-package com.example.deng.chatapp.entity;
+package com.example.deng.chatapp.entity.send_mess;
 
 public class Preception {
     private InputText inputText;
